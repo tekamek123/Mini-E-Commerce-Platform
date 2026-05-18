@@ -1,9 +1,9 @@
-import LoginForm from '@/components/features/auth/LoginForm'
+import RegisterForm from '@/components/features/auth/RegisterForm'
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <div className="flex h-screen w-full items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
-      <LoginForm />
+      <RegisterForm />
     </div>
   )
 }
