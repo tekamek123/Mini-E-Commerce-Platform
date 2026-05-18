@@ -27,8 +27,30 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  // refreshing the auth token
-  await supabase.auth.getUser()
+  // Fetch user to determine authentication state
+  const { data: { user } } = await supabase.auth.getUser()
+
+  const pathname = request.nextUrl.pathname
+
+  // Define routes that require authentication
+  const protectedRoutes = ['/cart', '/checkout', '/orders', '/profile']
+  const isProtectedRoute = protectedRoutes.some((route) => pathname.startsWith(route))
+
+  // Define auth routes that authenticated users shouldn't access
+  const authRoutes = ['/login', '/register']
+  const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route))
+
+  if (isProtectedRoute && !user) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/login'
+    return NextResponse.redirect(url)
+  }
+
+  if (isAuthRoute && user) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/'
+    return NextResponse.redirect(url)
+  }
 
   return supabaseResponse
 }
