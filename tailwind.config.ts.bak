@@ -11,6 +11,19 @@ export default {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        indigo: {
+          50: '#fdf2f4',
+          100: '#fce7ec',
+          200: '#f8c3d0',
+          300: '#f394ad',
+          400: '#ea5b82',
+          500: '#d62d58',
+          600: '#7e0f2b', // Medebr Deep Burgundy Primary
+          700: '#610b20', // Hover
+          800: '#4f091a',
+          900: '#3d0714',
+          950: '#22030a',
+        },
       },
     },
   },

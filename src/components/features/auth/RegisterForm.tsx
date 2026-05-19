@@ -22,7 +22,8 @@ export default function RegisterForm() {
   const supabase = createClient();
 
   return (
-    <div className="w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-xl dark:bg-gray-800">
+    <div className="flex min-h-[calc(100vh-4rem)] w-full items-center justify-center p-8 bg-gray-50 dark:bg-gray-950">
+      <div className="w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-xl dark:bg-gray-800">
       <div className="text-center">
         <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-white">
           Create an Account
@@ -168,6 +169,7 @@ export default function RegisterForm() {
           </Form>
         )}
       </Formik>
+    </div>
     </div>
   );
 }
