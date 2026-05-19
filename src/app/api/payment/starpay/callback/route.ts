@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/client';
+import { createClient } from '@/lib/supabase/server';
 
 type CallbackRequestBody = {
   order_reference: string;
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     }
 
     // 1. Initialize Supabase client
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // 2. Fetch current order status
     const { data: order, error: orderFetchError } = await supabase
