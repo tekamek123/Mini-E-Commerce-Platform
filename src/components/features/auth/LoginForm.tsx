@@ -22,9 +22,9 @@ export default function LoginForm() {
   const supabase = createClient();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 min-h-[calc(100vh-4rem)] overflow-hidden bg-gray-50 dark:bg-gray-950">
+    <div className="grid min-h-[calc(100vh-4rem)] grid-cols-1 overflow-hidden bg-gray-50 md:grid-cols-2 dark:bg-gray-950">
       {/* Left side: Retail shop interior side image */}
-      <div className="relative hidden md:block w-full h-full min-h-[500px]">
+      <div className="relative hidden h-full min-h-[500px] w-full md:block">
         <Image
           src="/images/side-image.png"
           alt="Medebr Shop Interior"
@@ -36,7 +36,7 @@ export default function LoginForm() {
       </div>
 
       {/* Right side: Login form and brand branding */}
-      <div className="flex flex-col items-center justify-center p-8 md:p-12 lg:p-16 space-y-6 w-full h-full">
+      <div className="flex h-full w-full flex-col items-center justify-center space-y-6 p-8 md:p-12 lg:p-16">
         {/* Medebr Shop Logo and Name Header */}
         <div className="flex flex-col items-center space-y-2 text-center">
           <Image
@@ -47,15 +47,15 @@ export default function LoginForm() {
             priority
             className="object-contain"
           />
-          <h2 className="text-2xl font-extrabold text-[#7e0f2b] dark:text-[#ea5b82] tracking-tight">
+          <h2 className="text-2xl font-extrabold tracking-tight text-[#7e0f2b] dark:text-[#ea5b82]">
             Medebr Shop
           </h2>
         </div>
 
         {/* White container Card */}
-        <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100 dark:border-gray-700 space-y-6">
-          <div className="text-center space-y-1">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+        <div className="w-full max-w-md space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-lg sm:p-8 dark:border-gray-700 dark:bg-gray-800">
+          <div className="space-y-1 text-center">
+            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl dark:text-white">
               Welcome Back
             </h1>
             <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -94,7 +94,7 @@ export default function LoginForm() {
                       Email address
                     </label>
                     <div className="relative mt-1.5">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                         <Mail className="h-5 w-5 text-gray-400" />
                       </div>
                       <Field
@@ -102,7 +102,7 @@ export default function LoginForm() {
                         name="email"
                         type="email"
                         autoComplete="email"
-                        className="block w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-transparent text-gray-900 dark:text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm focus:outline-none transition-all"
+                        className="block w-full rounded-xl border border-gray-300 bg-transparent py-2.5 pr-4 pl-10 text-gray-900 placeholder-gray-400 transition-all focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none sm:text-sm dark:border-gray-700 dark:text-white"
                         placeholder="tekamek25@gmail.com"
                       />
                     </div>
@@ -124,13 +124,13 @@ export default function LoginForm() {
                       </label>
                       <Link
                         href="/forgot-password"
-                        className="text-xs font-semibold text-[#7e0f2b] hover:text-[#610b20] dark:text-[#ea5b82] transition-colors"
+                        className="text-xs font-semibold text-[#7e0f2b] transition-colors hover:text-[#610b20] dark:text-[#ea5b82]"
                       >
                         Forgot Password?
                       </Link>
                     </div>
                     <div className="relative mt-1.5">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                         <Lock className="h-5 w-5 text-gray-400" />
                       </div>
                       <Field
@@ -138,15 +138,19 @@ export default function LoginForm() {
                         name="password"
                         type={showPassword ? 'text' : 'password'}
                         autoComplete="current-password"
-                        className="block w-full pl-10 pr-10 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-transparent text-gray-900 dark:text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm focus:outline-none transition-all"
+                        className="block w-full rounded-xl border border-gray-300 bg-transparent py-2.5 pr-10 pl-10 text-gray-900 placeholder-gray-400 transition-all focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none sm:text-sm dark:border-gray-700 dark:text-white"
                         placeholder="••••••••"
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+                        className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-200"
                       >
-                        {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                        {showPassword ? (
+                          <EyeOff className="h-5 w-5" />
+                        ) : (
+                          <Eye className="h-5 w-5" />
+                        )}
                       </button>
                     </div>
                     <ErrorMessage
@@ -167,7 +171,7 @@ export default function LoginForm() {
                   />
                   <label
                     htmlFor="rememberMe"
-                    className="ml-2 block text-sm text-gray-700 dark:text-gray-300 select-none cursor-pointer"
+                    className="ml-2 block cursor-pointer text-sm text-gray-700 select-none dark:text-gray-300"
                   >
                     Remember Me
                   </label>
@@ -181,7 +185,7 @@ export default function LoginForm() {
                   <Button
                     type="submit"
                     isLoading={isSubmitting}
-                    className="w-full py-3 bg-[#7e0f2b] hover:bg-[#610b20] text-white font-semibold rounded-xl text-base transition-all active:scale-[0.98]"
+                    className="w-full rounded-xl bg-[#7e0f2b] py-3 text-base font-semibold text-white transition-all hover:bg-[#610b20] active:scale-[0.98]"
                   >
                     Sign In
                   </Button>
@@ -191,7 +195,7 @@ export default function LoginForm() {
                   Don&apos;t have an account?{' '}
                   <Link
                     href="/register"
-                    className="font-semibold text-[#7e0f2b] hover:text-[#610b20] dark:text-[#ea5b82] transition-colors"
+                    className="font-semibold text-[#7e0f2b] transition-colors hover:text-[#610b20] dark:text-[#ea5b82]"
                   >
                     Register here
                   </Link>
