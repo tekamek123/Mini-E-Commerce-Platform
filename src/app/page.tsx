@@ -11,7 +11,7 @@ export default function Home() {
           Browse our collection of the latest products.
         </p>
       </div>
-      
+
       <ProductList />
     </div>
   );
