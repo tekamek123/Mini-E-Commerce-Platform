@@ -26,7 +26,8 @@ export default function ProductCard({ product }: { product: Product }) {
     <div className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-900">
       <Link
         href={`/products/${product.id}`}
-        className="relative block aspect-[4/3] w-full overflow-hidden border-b border-gray-100 bg-white sm:aspect-[4/3] sm:h-auto dark:border-gray-700 dark:bg-gray-800"
+        aria-label={`View details for ${product.title}`}
+        className="relative block aspect-[4/3] w-full overflow-hidden border-b border-gray-100 bg-white outline-none focus-visible:ring-2 focus-visible:ring-[#7e0f2b] focus-visible:ring-offset-2 sm:aspect-[4/3] sm:h-auto dark:border-gray-700 dark:bg-gray-800"
       >
         <Image
           src={product.image}
@@ -39,7 +40,8 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="flex flex-1 flex-col space-y-2 p-4">
         <Link
           href={`/products/${product.id}`}
-          className="transition-colors hover:text-indigo-600 dark:hover:text-indigo-400"
+          aria-label={`View details for ${product.title}`}
+          className="rounded-md transition-colors outline-none hover:text-[#7e0f2b] focus-visible:ring-2 focus-visible:ring-[#7e0f2b] focus-visible:ring-offset-2 dark:hover:text-[#ea5b82]"
         >
           <h3
             className="line-clamp-2 text-sm font-medium text-gray-900 dark:text-gray-100"
@@ -53,9 +55,16 @@ export default function ProductCard({ product }: { product: Product }) {
           <p className="text-lg font-semibold text-gray-900 dark:text-white">
             {formatPrice(product.price)}
           </p>
-          <div className="mt-2 flex items-center space-x-1">
-            <span className="text-sm text-yellow-400">★ {product.rating.rate}</span>
-            <span className="text-xs text-gray-500">({product.rating.count})</span>
+          <div
+            className="mt-2 flex items-center space-x-1"
+            aria-label={`Rated ${product.rating.rate} out of 5 stars by ${product.rating.count} customers`}
+          >
+            <span className="text-sm text-yellow-400" aria-hidden="true">
+              ★ {product.rating.rate}
+            </span>
+            <span className="text-xs text-gray-500" aria-hidden="true">
+              ({product.rating.count})
+            </span>
           </div>
         </div>
       </div>
@@ -63,7 +72,8 @@ export default function ProductCard({ product }: { product: Product }) {
         <Button
           onClick={handleAddToCart}
           isLoading={isAdding}
-          className="w-full rounded-md px-3 py-2 text-sm font-semibold"
+          aria-label={`Add ${product.title} to cart`}
+          className="w-full rounded-md px-3 py-2 text-sm font-semibold outline-none focus-visible:ring-2 focus-visible:ring-[#7e0f2b] focus-visible:ring-offset-2"
         >
           {isAdding ? 'Adding...' : 'Add to cart'}
         </Button>

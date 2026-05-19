@@ -22,7 +22,7 @@ export default function CartPage() {
   if (!mounted) {
     return (
       <div className="flex h-96 items-center justify-center">
-        <Loader2 className="h-10 w-10 animate-spin text-indigo-600" />
+        <Loader2 className="h-10 w-10 animate-spin text-[#7e0f2b] dark:text-[#ea5b82]" />
       </div>
     );
   }
@@ -30,8 +30,8 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center rounded-2xl bg-white p-8 py-20 text-center shadow-sm dark:bg-gray-800">
-        <div className="mb-6 rounded-full bg-indigo-50 p-6 dark:bg-indigo-900/20">
-          <ShoppingBag className="h-16 w-16 text-indigo-600 dark:text-indigo-400" />
+        <div className="mb-6 rounded-full bg-red-50 p-6 dark:bg-red-950/20">
+          <ShoppingBag className="h-16 w-16 text-[#7e0f2b] dark:text-[#ea5b82]" />
         </div>
         <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
           Your cart is empty
@@ -42,7 +42,8 @@ export default function CartPage() {
         </p>
         <Link
           href="/"
-          className="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-all hover:bg-indigo-500"
+          aria-label="Start shopping catalog"
+          className="inline-flex items-center justify-center rounded-xl bg-[#7e0f2b] px-6 py-3 text-base font-semibold text-white shadow-sm transition-all outline-none hover:bg-[#610b20] focus-visible:ring-2 focus-visible:ring-[#7e0f2b] focus-visible:ring-offset-2"
         >
           <ArrowLeft className="mr-2 h-5 w-5" /> Start Shopping
         </Link>
@@ -86,7 +87,8 @@ export default function CartPage() {
                   <div className="space-y-1">
                     <Link
                       href={`/products/${item.id}`}
-                      className="line-clamp-1 text-base font-semibold text-gray-900 transition-colors hover:text-indigo-600 dark:text-white dark:hover:text-indigo-400"
+                      aria-label={`View details for ${item.title}`}
+                      className="line-clamp-1 rounded-md px-1 text-base font-semibold text-gray-900 transition-colors outline-none hover:text-[#7e0f2b] focus-visible:ring-2 focus-visible:ring-[#7e0f2b] focus-visible:ring-offset-2 dark:text-white dark:hover:text-[#ea5b82]"
                     >
                       {item.title}
                     </Link>
@@ -100,18 +102,21 @@ export default function CartPage() {
                     <div className="flex items-center rounded-lg border border-gray-200 dark:border-gray-700">
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="p-2 text-gray-500 transition-colors hover:text-gray-700 dark:hover:text-white"
-                        aria-label="Decrease quantity"
+                        className="rounded-l-lg p-2 text-gray-500 transition-colors outline-none hover:text-gray-700 focus-visible:ring-2 focus-visible:ring-[#7e0f2b] dark:hover:text-white"
+                        aria-label={`Decrease quantity of ${item.title}`}
                       >
                         <Minus className="h-4 w-4" />
                       </button>
-                      <span className="px-4 text-sm font-semibold text-gray-900 dark:text-white">
+                      <span
+                        className="px-4 text-sm font-semibold text-gray-900 dark:text-white"
+                        aria-live="polite"
+                      >
                         {item.quantity}
                       </span>
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="p-2 text-gray-500 transition-colors hover:text-gray-700 dark:hover:text-white"
-                        aria-label="Increase quantity"
+                        className="rounded-r-lg p-2 text-gray-500 transition-colors outline-none hover:text-gray-700 focus-visible:ring-2 focus-visible:ring-[#7e0f2b] dark:hover:text-white"
+                        aria-label={`Increase quantity of ${item.title}`}
                       >
                         <Plus className="h-4 w-4" />
                       </button>
@@ -124,8 +129,8 @@ export default function CartPage() {
                       </p>
                       <button
                         onClick={() => removeItem(item.id)}
-                        className="text-gray-400 transition-colors hover:text-red-500"
-                        aria-label="Remove item"
+                        className="rounded p-1 text-gray-400 transition-colors outline-none hover:text-red-500 focus-visible:ring-2 focus-visible:ring-red-500"
+                        aria-label={`Remove ${item.title} from cart`}
                       >
                         <Trash2 className="h-5 w-5" />
                       </button>
@@ -138,7 +143,8 @@ export default function CartPage() {
 
           <Link
             href="/"
-            className="inline-flex items-center text-sm font-medium text-indigo-600 transition-colors hover:text-indigo-500 dark:text-indigo-400"
+            aria-label="Continue shopping catalog"
+            className="inline-flex items-center rounded-md px-1 text-sm font-semibold text-[#7e0f2b] transition-colors outline-none hover:text-[#610b20] focus-visible:ring-2 focus-visible:ring-[#7e0f2b] focus-visible:ring-offset-2 dark:text-[#ea5b82] dark:hover:text-[#ea5b82]/80"
           >
             <ArrowLeft className="mr-1 h-4 w-4" /> Continue Shopping
           </Link>
@@ -167,7 +173,8 @@ export default function CartPage() {
 
           <button
             onClick={() => router.push('/checkout')}
-            className="flex w-full items-center justify-center rounded-xl bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-all hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 active:scale-[0.98]"
+            aria-label="Proceed to checkout details"
+            className="flex w-full items-center justify-center rounded-xl bg-[#7e0f2b] px-6 py-3 text-base font-semibold text-white shadow-sm transition-all outline-none hover:bg-[#610b20] focus-visible:ring-2 focus-visible:ring-[#7e0f2b] focus-visible:ring-offset-2 active:scale-[0.98] dark:bg-[#ea5b82] dark:hover:bg-[#d63f68]"
           >
             Proceed to Checkout
           </button>

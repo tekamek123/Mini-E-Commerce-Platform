@@ -15,7 +15,11 @@ export default async function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex flex-shrink-0 items-center">
-            <Link href="/" className="text-xl font-bold text-indigo-600 dark:text-indigo-400">
+            <Link
+              href="/"
+              aria-label="Medebr Shop Homepage"
+              className="rounded-lg text-xl font-bold text-[#7e0f2b] transition-colors outline-none focus-visible:ring-2 focus-visible:ring-[#7e0f2b] focus-visible:ring-offset-2 dark:text-[#ea5b82] dark:focus-visible:ring-[#ea5b82]"
+            >
               Medebr Shop
             </Link>
           </div>
@@ -23,7 +27,8 @@ export default async function Navbar() {
           <div className="flex items-center space-x-4">
             <Link
               href="/cart"
-              className="relative p-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+              aria-label="Shopping Cart"
+              className="relative rounded-lg p-2 text-gray-600 transition-colors outline-none hover:text-[#7e0f2b] focus-visible:ring-2 focus-visible:ring-[#7e0f2b] focus-visible:ring-offset-2 dark:text-gray-300 dark:hover:text-[#ea5b82] dark:focus-visible:ring-[#ea5b82]"
             >
               <CartBadge />
             </Link>
@@ -36,7 +41,8 @@ export default async function Navbar() {
                 <form action={signout}>
                   <button
                     type="submit"
-                    className="text-sm font-medium text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
+                    aria-label="Sign out of your account"
+                    className="rounded-lg text-sm font-medium text-red-600 transition-colors outline-none hover:text-red-800 focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 dark:text-red-400 dark:hover:text-red-300"
                   >
                     Sign out
                   </button>
@@ -45,7 +51,8 @@ export default async function Navbar() {
             ) : (
               <Link
                 href="/login"
-                className="flex items-center text-sm font-medium text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400"
+                aria-label="Sign in to your account"
+                className="flex items-center rounded-lg text-sm font-medium text-gray-700 transition-colors outline-none hover:text-[#7e0f2b] focus-visible:ring-2 focus-visible:ring-[#7e0f2b] focus-visible:ring-offset-2 dark:text-gray-300 dark:hover:text-[#ea5b82] dark:focus-visible:ring-[#ea5b82]"
               >
                 <User className="mr-1 h-5 w-5" />
                 Sign in
