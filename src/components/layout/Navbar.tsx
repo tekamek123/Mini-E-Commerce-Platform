@@ -16,7 +16,7 @@ export default async function Navbar() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex flex-shrink-0 items-center">
             <Link href="/" className="text-xl font-bold text-indigo-600 dark:text-indigo-400">
-              MiniShop
+              Medebr Shop
             </Link>
           </div>
 

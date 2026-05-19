@@ -1,5 +1,19 @@
 @import 'tailwindcss';
 
+@theme {
+  --color-indigo-50: #fdf2f4;
+  --color-indigo-100: #fce7ec;
+  --color-indigo-200: #f8c3d0;
+  --color-indigo-300: #f394ad;
+  --color-indigo-400: #ea5b82;
+  --color-indigo-500: #d62d58;
+  --color-indigo-600: #7e0f2b; /* EagleLion Deep Burgundy Primary */
+  --color-indigo-700: #610b20;  /* Hover / Darker Crimson */
+  --color-indigo-800: #4f091a;
+  --color-indigo-900: #3d0714;
+  --color-indigo-950: #22030a;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -15,5 +29,5 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
