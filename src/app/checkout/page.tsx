@@ -49,11 +49,29 @@ export default function CheckoutPage() {
   const { items, getTotalPrice, clearCart } = useCartStore();
   const supabase = createClient();
 
-  // Prevent hydration mismatch
+  // Prevent hydration mismatch and handle callback parameters
   useEffect(() => {
-    const handle = requestAnimationFrame(() => setMounted(true));
+    const handle = requestAnimationFrame(() => {
+      setMounted(true);
+
+      // Parse success/error params from the hosted checkout redirect safely in useEffect
+      const searchParams = new URLSearchParams(window.location.search);
+      const success = searchParams.get('success');
+      const orderId = searchParams.get('order_id');
+      const error = searchParams.get('error');
+
+      if (success === 'true' && orderId) {
+        setOrderSuccess(orderId);
+        clearCart();
+        // Clean URL to make the page shareable without triggering cart clear loops
+        window.history.replaceState({}, '', '/checkout');
+      } else if (success === 'false' && error) {
+        toast.error(error);
+        window.history.replaceState({}, '', '/checkout');
+      }
+    });
     return () => cancelAnimationFrame(handle);
-  }, []);
+  }, [clearCart]);
 
   if (!mounted) {
     return (
@@ -226,10 +244,30 @@ export default function CheckoutPage() {
         throw new Error(itemsInsertError.message || 'Failed to add products to order.');
       }
 
-      // 6. Flawless success: store order ID, clear Zustand cart, and notify
-      setOrderSuccess(orderData.id);
-      clearCart();
-      toast.success('Order placed successfully!');
+      // 6. Initialize StarPay Gateway session via API Route
+      const initResponse = await fetch('/api/payment/starpay/initialize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderId: orderData.id,
+          amount: orderTotal,
+          customer: {
+            name: values.fullName,
+            email: user.email || 'guest@example.com',
+            phone: values.phone,
+          },
+        }),
+      });
+
+      const initData = await initResponse.json();
+      if (!initResponse.ok || !initData.success) {
+        throw new Error(initData.error || 'Failed to initialize StarPay session.');
+      }
+
+      toast.success('Redirecting to StarPay Secure Checkout...');
+
+      // Redirect browser directly to StarPay's hosted secure checkout screen
+      router.push(initData.checkout_url);
     } catch (err: unknown) {
       console.error('Checkout error:', err);
       const errorMessage =
@@ -314,7 +352,7 @@ export default function CheckoutPage() {
                     name="address"
                     type="text"
                     className="mt-1.5 block w-full rounded-xl border border-gray-300 bg-transparent px-4 py-2.5 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none sm:text-sm dark:border-gray-700 dark:text-white"
-                    placeholder="123 Main Street, Apt 4B"
+                    placeholder="Ras Mekonen St"
                   />
                   <ErrorMessage
                     name="address"
@@ -336,7 +374,7 @@ export default function CheckoutPage() {
                       name="city"
                       type="text"
                       className="mt-1.5 block w-full rounded-xl border border-gray-300 bg-transparent px-4 py-2.5 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none sm:text-sm dark:border-gray-700 dark:text-white"
-                      placeholder="New York"
+                      placeholder="Addis Ababa"
                     />
                     <ErrorMessage
                       name="city"
@@ -357,7 +395,7 @@ export default function CheckoutPage() {
                       name="postalCode"
                       type="text"
                       className="mt-1.5 block w-full rounded-xl border border-gray-300 bg-transparent px-4 py-2.5 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none sm:text-sm dark:border-gray-700 dark:text-white"
-                      placeholder="10001"
+                      placeholder="1000"
                     />
                     <ErrorMessage
                       name="postalCode"
@@ -379,7 +417,7 @@ export default function CheckoutPage() {
                     name="phone"
                     type="tel"
                     className="mt-1.5 block w-full rounded-xl border border-gray-300 bg-transparent px-4 py-2.5 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none sm:text-sm dark:border-gray-700 dark:text-white"
-                    placeholder="+1234567890"
+                    placeholder="+251912345678"
                   />
                   <ErrorMessage
                     name="phone"
