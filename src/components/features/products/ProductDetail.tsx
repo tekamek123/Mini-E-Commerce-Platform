@@ -5,14 +5,16 @@ import { getProduct } from '@/services/productService';
 import { formatPrice } from '@/lib/utils';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
-import { Loader2, ArrowLeft, Star, ShoppingCart } from 'lucide-react';
+import { Skeleton } from '@/components/ui/Skeleton';
+import ErrorState from '@/components/ui/ErrorState';
+import { ArrowLeft, Star, ShoppingCart } from 'lucide-react';
 
 export default function ProductDetail() {
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
 
-  const { data: product, isLoading, error } = useQuery({
+  const { data: product, isLoading, error, refetch } = useQuery({
     queryKey: ['product', id],
     queryFn: () => getProduct(id),
     enabled: !!id,
@@ -20,22 +22,44 @@ export default function ProductDetail() {
 
   if (isLoading) {
     return (
-      <div className="flex h-96 items-center justify-center">
-        <Loader2 className="h-10 w-10 animate-spin text-indigo-600" />
+      <div className="space-y-6">
+        <Skeleton className="h-5 w-32" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 bg-white dark:bg-gray-800 rounded-2xl p-6 lg:p-8 shadow-sm">
+          <Skeleton className="aspect-square w-full rounded-xl" />
+          <div className="flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <Skeleton className="h-6 w-20 rounded-full" />
+              <Skeleton className="h-8 w-3/4" />
+              <Skeleton className="h-5 w-1/3" />
+              <Skeleton className="h-10 w-1/4 mt-4" />
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-2">
+                <Skeleton className="h-4 w-20" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-2/3" />
+              </div>
+            </div>
+            <Skeleton className="h-12 w-full mt-6" />
+          </div>
+        </div>
       </div>
     );
   }
 
   if (error || !product) {
     return (
-      <div className="flex h-96 flex-col items-center justify-center text-red-500 bg-red-50 dark:bg-red-900/10 rounded-lg p-6">
-        <p className="font-semibold text-lg">Product not found</p>
+      <div className="space-y-6">
         <button
           onClick={() => router.back()}
-          className="mt-4 flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
+          className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors"
         >
-          <ArrowLeft className="w-4 h-4 mr-1" /> Go Back
+          <ArrowLeft className="w-4 h-4 mr-1" /> Back to Products
         </button>
+        <ErrorState
+          title="Product not found"
+          message="We couldn't load the details for this product. It may have been removed or does not exist."
+          onRetry={refetch}
+        />
       </div>
     );
   }
