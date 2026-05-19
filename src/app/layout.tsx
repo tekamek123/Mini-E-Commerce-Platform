@@ -4,6 +4,7 @@ import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import { AuthProvider } from '@/components/providers/AuthProvider';
 import { ReactQueryProvider } from '@/components/providers/ReactQueryProvider';
+import { Toaster } from 'sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -34,6 +35,7 @@ export default function RootLayout({
           <AuthProvider>
             <Navbar />
             <main className="min-h-[calc(100vh-4rem)]">{children}</main>
+            <Toaster position="top-right" richColors closeButton />
           </AuthProvider>
         </ReactQueryProvider>
       </body>

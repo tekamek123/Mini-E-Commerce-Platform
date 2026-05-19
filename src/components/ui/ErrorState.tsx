@@ -19,7 +19,7 @@ export default function ErrorState({
       {onRetry && (
         <button
           onClick={onRetry}
-          className="inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none active:scale-95"
+          className="inline-flex items-center rounded-xl bg-[#7e0f2b] px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-[#610b20] focus:outline-none active:scale-95 dark:bg-[#ea5b82] dark:hover:bg-[#d63f68]"
         >
           <RotateCcw className="mr-2 h-4 w-4" />
           Try Again
