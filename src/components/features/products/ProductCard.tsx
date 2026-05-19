@@ -1,9 +1,27 @@
+'use client';
+
+import { useState } from 'react';
 import { Product } from '@/types';
 import { formatPrice } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useCartStore } from '@/store/cartStore';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/Button';
 
 export default function ProductCard({ product }: { product: Product }) {
+  const addItem = useCartStore((state) => state.addItem);
+  const [isAdding, setIsAdding] = useState(false);
+
+  const handleAddToCart = () => {
+    setIsAdding(true);
+    // Standard mock API/action lag for visual feedback (600ms)
+    setTimeout(() => {
+      addItem(product);
+      toast.success(`${product.title} added to cart!`);
+      setIsAdding(false);
+    }, 600);
+  };
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-900">
       <Link
@@ -42,9 +60,13 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
       </div>
       <div className="mt-auto p-4 pt-0">
-        <button className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-          Add to cart
-        </button>
+        <Button
+          onClick={handleAddToCart}
+          isLoading={isAdding}
+          className="w-full rounded-md px-3 py-2 text-sm font-semibold"
+        >
+          {isAdding ? 'Adding...' : 'Add to cart'}
+        </Button>
       </div>
     </div>
   );

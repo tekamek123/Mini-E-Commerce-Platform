@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { signout } from '@/app/login/actions';
-import { ShoppingCart, User } from 'lucide-react';
+import { User } from 'lucide-react';
+import CartBadge from './CartBadge';
 
 export default async function Navbar() {
   const supabase = await createClient();
@@ -24,7 +25,7 @@ export default async function Navbar() {
               href="/cart"
               className="relative p-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
             >
-              <ShoppingCart className="h-6 w-6" />
+              <CartBadge />
             </Link>
 
             {user ? (
