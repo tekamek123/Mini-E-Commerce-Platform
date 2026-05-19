@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Mini E-Commerce',
-  description: 'A mini e-commerce platform challenge',
+  title: 'Medebr Shop',
+  description: 'A premium mini e-commerce platform challenge',
 };
 
 export default function RootLayout({
