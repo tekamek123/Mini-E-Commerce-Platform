@@ -8,11 +8,29 @@ import { useParams, useRouter } from 'next/navigation';
 import { Skeleton } from '@/components/ui/Skeleton';
 import ErrorState from '@/components/ui/ErrorState';
 import { ArrowLeft, Star, ShoppingCart } from 'lucide-react';
+import { useCartStore } from '@/store/cartStore';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/Button';
+import { useState } from 'react';
 
 export default function ProductDetail() {
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
+
+  const addItem = useCartStore((state) => state.addItem);
+  const [isAdding, setIsAdding] = useState(false);
+
+  const handleAddToCart = () => {
+    if (product) {
+      setIsAdding(true);
+      setTimeout(() => {
+        addItem(product);
+        toast.success(`${product.title} added to cart!`);
+        setIsAdding(false);
+      }, 600);
+    }
+  };
 
   const {
     data: product,
@@ -128,9 +146,14 @@ export default function ProductDetail() {
           </div>
 
           <div className="border-t border-gray-100 pt-6 dark:border-gray-700">
-            <button className="flex w-full items-center justify-center rounded-xl bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-all hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 active:scale-[0.98]">
-              <ShoppingCart className="mr-2 h-5 w-5" /> Add to Cart
-            </button>
+            <Button
+              onClick={handleAddToCart}
+              isLoading={isAdding}
+              leftIcon={!isAdding && <ShoppingCart className="h-5 w-5" />}
+              className="flex w-full items-center justify-center rounded-xl px-6 py-3 text-base font-semibold"
+            >
+              {isAdding ? 'Adding to Cart...' : 'Add to Cart'}
+            </Button>
           </div>
         </div>
       </div>
