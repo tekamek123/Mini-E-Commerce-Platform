@@ -37,8 +37,8 @@ export default function CartPage() {
           Your cart is empty
         </h2>
         <p className="mb-8 max-w-md text-gray-500 dark:text-gray-400">
-          Looks like you haven&apos;t added anything to your cart yet. Head back to the shop to find your
-          next purchase!
+          Looks like you haven&apos;t added anything to your cart yet. Head back to the shop to find
+          your next purchase!
         </p>
         <Link
           href="/"
