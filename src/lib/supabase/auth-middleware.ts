@@ -35,11 +35,11 @@ export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Define routes that require authentication
-  const protectedRoutes = ['/cart', '/checkout', '/orders', '/profile'];
+  const protectedRoutes = ['/cart', '/checkout', '/orders', '/profile', '/reset-password'];
   const isProtectedRoute = protectedRoutes.some((route) => pathname.startsWith(route));
 
   // Define auth routes that authenticated users shouldn't access
-  const authRoutes = ['/login', '/register'];
+  const authRoutes = ['/login', '/register', '/forgot-password'];
   const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route));
 
   if (isProtectedRoute && !user) {
