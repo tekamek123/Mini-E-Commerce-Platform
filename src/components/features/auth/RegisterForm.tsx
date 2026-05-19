@@ -22,14 +22,12 @@ export default function RegisterForm() {
   const supabase = createClient();
 
   return (
-    <div className="w-full max-w-md space-y-8 rounded-xl bg-white dark:bg-gray-800 p-8 shadow-xl">
+    <div className="w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-xl dark:bg-gray-800">
       <div className="text-center">
         <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-white">
           Create an Account
         </h2>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-          Join us and start shopping
-        </p>
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Join us and start shopping</p>
       </div>
 
       <Formik
@@ -37,15 +35,15 @@ export default function RegisterForm() {
         validationSchema={RegisterSchema}
         onSubmit={async (values, { setSubmitting }) => {
           setServerError(null);
-          
+
           const { error } = await supabase.auth.signUp({
             email: values.email,
             password: values.password,
             options: {
               data: {
                 full_name: values.fullName,
-              }
-            }
+              },
+            },
           });
 
           if (error) {
@@ -63,21 +61,31 @@ export default function RegisterForm() {
           <Form className="mt-8 space-y-6">
             <div className="space-y-4">
               <div>
-                <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="fullName"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   Full Name
                 </label>
                 <Field
                   id="fullName"
                   name="fullName"
                   type="text"
-                  className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-700 px-3 py-2 text-gray-900 dark:text-white placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm bg-transparent"
+                  className="mt-1 block w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none sm:text-sm dark:border-gray-700 dark:text-white"
                   placeholder="John Doe"
                 />
-                <ErrorMessage name="fullName" component="div" className="mt-1 text-sm text-red-500" />
+                <ErrorMessage
+                  name="fullName"
+                  component="div"
+                  className="mt-1 text-sm text-red-500"
+                />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   Email address
                 </label>
                 <Field
@@ -85,14 +93,17 @@ export default function RegisterForm() {
                   name="email"
                   type="email"
                   autoComplete="email"
-                  className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-700 px-3 py-2 text-gray-900 dark:text-white placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm bg-transparent"
+                  className="mt-1 block w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none sm:text-sm dark:border-gray-700 dark:text-white"
                   placeholder="you@example.com"
                 />
                 <ErrorMessage name="email" component="div" className="mt-1 text-sm text-red-500" />
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   Password
                 </label>
                 <Field
@@ -100,14 +111,21 @@ export default function RegisterForm() {
                   name="password"
                   type="password"
                   autoComplete="new-password"
-                  className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-700 px-3 py-2 text-gray-900 dark:text-white placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm bg-transparent"
+                  className="mt-1 block w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none sm:text-sm dark:border-gray-700 dark:text-white"
                   placeholder="••••••••"
                 />
-                <ErrorMessage name="password" component="div" className="mt-1 text-sm text-red-500" />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="mt-1 text-sm text-red-500"
+                />
               </div>
 
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   Confirm Password
                 </label>
                 <Field
@@ -115,22 +133,24 @@ export default function RegisterForm() {
                   name="confirmPassword"
                   type="password"
                   autoComplete="new-password"
-                  className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-700 px-3 py-2 text-gray-900 dark:text-white placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm bg-transparent"
+                  className="mt-1 block w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none sm:text-sm dark:border-gray-700 dark:text-white"
                   placeholder="••••••••"
                 />
-                <ErrorMessage name="confirmPassword" component="div" className="mt-1 text-sm text-red-500" />
+                <ErrorMessage
+                  name="confirmPassword"
+                  component="div"
+                  className="mt-1 text-sm text-red-500"
+                />
               </div>
             </div>
 
-            {serverError && (
-              <p className="text-center text-sm text-red-500">{serverError}</p>
-            )}
+            {serverError && <p className="text-center text-sm text-red-500">{serverError}</p>}
 
             <div>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isSubmitting ? 'Registering...' : 'Register'}
               </button>
@@ -138,7 +158,10 @@ export default function RegisterForm() {
 
             <div className="text-center text-sm">
               <span className="text-gray-600 dark:text-gray-400">Already have an account? </span>
-              <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">
+              <Link
+                href="/login"
+                className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
+              >
                 Sign in here
               </Link>
             </div>

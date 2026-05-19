@@ -18,7 +18,7 @@ apiClient.interceptors.request.use(
     // (Note: Supabase handles auth via SSR cookies natively in our setup)
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 // Response Interceptor
@@ -29,16 +29,17 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     // Standardize and extract error messages globally
-    const message = error.response?.data?.message || error.message || 'An unexpected API error occurred';
-    
+    const message =
+      error.response?.data?.message || error.message || 'An unexpected API error occurred';
+
     // Display error toast if running on the client side
     if (typeof window !== 'undefined') {
       toast.error(message);
     }
-    
+
     // Reject the promise so calling functions can handle it as well
     return Promise.reject(error);
-  }
+  },
 );
 
 export default apiClient;
