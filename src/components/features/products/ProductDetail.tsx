@@ -74,7 +74,8 @@ export default function ProductDetail() {
       <div className="space-y-6">
         <button
           onClick={() => router.back()}
-          className="flex items-center text-sm font-medium text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+          aria-label="Go back to products catalog"
+          className="flex items-center rounded-md px-1 text-sm font-semibold text-gray-500 transition-colors outline-none hover:text-[#7e0f2b] focus-visible:ring-2 focus-visible:ring-[#7e0f2b] focus-visible:ring-offset-2 dark:text-gray-400 dark:hover:text-[#ea5b82]"
         >
           <ArrowLeft className="mr-1 h-4 w-4" /> Back to Products
         </button>
@@ -91,7 +92,8 @@ export default function ProductDetail() {
     <div className="space-y-6">
       <button
         onClick={() => router.back()}
-        className="flex items-center text-sm font-medium text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+        aria-label="Go back to products catalog"
+        className="flex items-center rounded-md px-1 text-sm font-semibold text-gray-500 transition-colors outline-none hover:text-[#7e0f2b] focus-visible:ring-2 focus-visible:ring-[#7e0f2b] focus-visible:ring-offset-2 dark:text-gray-400 dark:hover:text-[#ea5b82]"
       >
         <ArrowLeft className="mr-1 h-4 w-4" /> Back to Products
       </button>
@@ -112,7 +114,7 @@ export default function ProductDetail() {
         {/* Product Info */}
         <div className="flex flex-col justify-between space-y-6">
           <div className="space-y-4">
-            <span className="inline-flex items-center rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-medium text-indigo-800 capitalize dark:bg-indigo-900/30 dark:text-indigo-300">
+            <span className="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-800 capitalize dark:bg-[#7e0f2b]/20 dark:text-[#ea5b82]">
               {product.category}
             </span>
             <h1 className="text-2xl font-bold text-gray-900 lg:text-3xl dark:text-white">
@@ -120,15 +122,23 @@ export default function ProductDetail() {
             </h1>
 
             {/* Rating */}
-            <div className="flex items-center space-x-2">
+            <div
+              className="flex items-center space-x-2"
+              aria-label={`Rated ${product.rating.rate} out of 5 stars by ${product.rating.count} customers`}
+            >
               <div className="flex items-center text-yellow-400">
-                <Star className="h-5 w-5 fill-current" />
-                <span className="ml-1 text-sm font-semibold text-gray-900 dark:text-white">
+                <Star className="h-5 w-5 fill-current" aria-hidden="true" />
+                <span
+                  className="ml-1 text-sm font-semibold text-gray-900 dark:text-white"
+                  aria-hidden="true"
+                >
                   {product.rating.rate}
                 </span>
               </div>
-              <span className="text-gray-300 dark:text-gray-600">|</span>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
+              <span className="text-gray-300 dark:text-gray-600" aria-hidden="true">
+                |
+              </span>
+              <span className="text-sm text-gray-500 dark:text-gray-400" aria-hidden="true">
                 {product.rating.count} reviews
               </span>
             </div>
@@ -138,7 +148,7 @@ export default function ProductDetail() {
             </p>
 
             <div className="border-t border-gray-200 pt-4 dark:border-gray-700">
-              <h3 className="text-sm font-medium text-gray-900 dark:text-white">Description</h3>
+              <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Description</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
                 {product.description}
               </p>
@@ -149,8 +159,9 @@ export default function ProductDetail() {
             <Button
               onClick={handleAddToCart}
               isLoading={isAdding}
+              aria-label={`Add ${product.title} to cart`}
               leftIcon={!isAdding && <ShoppingCart className="h-5 w-5" />}
-              className="flex w-full items-center justify-center rounded-xl px-6 py-3 text-base font-semibold"
+              className="flex w-full items-center justify-center rounded-xl px-6 py-3 text-base font-semibold outline-none focus-visible:ring-2 focus-visible:ring-[#7e0f2b] focus-visible:ring-offset-2"
             >
               {isAdding ? 'Adding to Cart...' : 'Add to Cart'}
             </Button>
